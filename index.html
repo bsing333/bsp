@@ -16,7 +16,7 @@
       --master-font: 38px;
       --top-position: calc(var(--master-spacing) * 2);
       --initial-typography: calc(var(--master-font)/2);
-      --bottom-position: calc(100vh - calc(var(--master-spacing) * 2));
+      --bottom-position: calc(calc(var(--vh, 1vh) * 100) - calc(var(--master-spacing) * 2));
       --spacing: var(--master-spacing);
       --line-width: 1px;
       --animation-duration: 1s;
@@ -30,13 +30,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      background-color:var(--bg-theme);
+      height: calc(var(--vh, 1vh) * 100);
+      background-color: var(--bg-theme);
       color: var(--brand-theme);
       font-family: 'Bagoss', Helvetica, Arial, sans-serif;
       overflow: hidden;
     }
-    hr{
+    hr {
       border-color: var(--brand-theme);
       border-width: 1px;
     }
@@ -65,7 +65,7 @@
       transform: translate(-50%, -50%);
       animation: moveToBottom var(--animation-duration) forwards;
       animation-delay: var(--animation-delay);
-            z-index: -100;
+      z-index: -100;
     }
     .line {
       position: absolute;
@@ -74,7 +74,7 @@
     }
     .line-up {
       height: 0;
-      bottom: calc(50% - calc(var(--master-spacing)*2/3)); /* Changed: Start from middle, grow upward */
+      bottom: calc(50% - calc(var(--master-spacing)*2/3));
       left: 50%;
       transform: translateX(-50%);
       transform-origin: bottom;
@@ -83,7 +83,7 @@
     }
     .line-down {
       height: 0;
-      top: calc(50% + calc(var(--master-spacing)*2/3)); /* Changed: Start from middle, grow downward */
+      top: calc(50% + calc(var(--master-spacing)*2/3));
       left: 50%;
       transform: translateX(-50%);
       transform-origin: top;
@@ -128,43 +128,45 @@
     }
     @keyframes fadeIn {
       0% {
-         opacity: 0;
+        opacity: 0;
       }
       100% {
         opacity: 1;
       }
-  }
-
-@media (max-width: 444px) {
-    body{
-      overflow-x: hidden;
     }
-    :root {
+
+    @media (max-width: 444px) {
+      body {
+        overflow-x: hidden;
+      }
+      :root {
         --top-position: calc(var(--master-spacing) * 3);
-        --bottom-position: calc(100vh - calc(var(--master-spacing) * 3)); /* Adjust as needed */
+        --bottom-position: calc(calc(var(--vh, 1vh) * 100) - calc(var(--master-spacing) * 3));
+      }
     }
-}
-
   </style>
+  <script>
+    // Dynamically set the --vh variable to handle mobile viewport height
+    const setViewportHeight = () => {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    };
+    window.addEventListener('resize', setViewportHeight);
+    setViewportHeight();
+  </script>
 </head>
 
 <body>
-
   <div class="container">
     <div class="text top">BlueScale</div>
     <div class="text bottom">Productions</div>
     <div class="line line-up"></div>
     <div class="line line-down"></div>
   </div>
-  
-  <div id ="absolute"  style=" position: absolute;
-  top: 48.5%; left: 50%; background-color: black; border-style: solid; border-color: var(--brand-theme); border-radius: 8px; padding:8px; border-width: 1px; transform: translate(-50%, -50%); opacity: 0;
-    animation: fadeIn 2s forwards 2s;font-size: calc(var(--master-font)*0.5);
-    max-width: 383px;z-index: 100;">
-      <div style="width: 100%;text-align: center;">info@BlueScale.com</div>
-      <hr>
-      <div style="width: 100%;text-align: left;">BlueScale Productions is an independent film production company based in Los&nbsp;Angeles.</div>
-  </div>
 
+  <div id="absolute" style="position: absolute; top: 48.5%; left: 50%; background-color: black; border-style: solid; border-color: var(--brand-theme); border-radius: 8px; padding: 8px; border-width: 1px; transform: translate(-50%, -50%); opacity: 0; animation: fadeIn 2s forwards 2s; font-size: calc(var(--master-font)*0.5); max-width: 383px; z-index: 100;">
+    <div style="width: 100%; text-align: center;">info@BlueScale.com</div>
+    <hr>
+    <div style="width: 100%; text-align: left;">BlueScale Productions is an independent film production company based in Los&nbsp;Angeles.</div>
+  </div>
 </body>
 </html>
