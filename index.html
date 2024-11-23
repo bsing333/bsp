@@ -19,8 +19,8 @@
       --bottom-position: calc(100vh - calc(var(--master-spacing) * 2));
       --spacing: var(--master-spacing);
       --line-width: 1px;
-      --animation-duration: 1.5s;
-      --animation-delay: 1.25s;
+      --animation-duration: 1s;
+      --animation-delay: 1s;
       --brand-theme:  #00bfff;
       --bg-theme:  black;
     }
@@ -134,6 +134,17 @@
         opacity: 1;
       }
   }
+
+@media (max-width: 444px) {
+    body{
+      overflow-x: hidden;
+    }
+    :root {
+        --top-position: calc(var(--master-spacing) * 3);
+        --bottom-position: calc(100vh - calc(var(--master-spacing) * 3)); /* Adjust as needed */
+    }
+}
+
   </style>
 </head>
 
